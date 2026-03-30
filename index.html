@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAPS 체력 가이드</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0a0a0f;color:#f0f0f5;font-family:'Noto Sans KR',sans-serif;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 80px}
+.hd{text-align:center;padding:48px 0 32px}
+.hd-badge{display:inline-block;border:1px solid rgba(0,229,160,0.3);color:#00e5a0;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:20px;background:rgba(0,229,160,0.08)}
+.hd-title{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:4px;line-height:0.95;color:#fff;margin-bottom:8px}
+.hd-title span{color:#00e5a0}
+.hd-sub{font-size:15px;color:#8888aa;line-height:1.6}
+.hd-sub b{color:#00e5a0}
+.card{background:#13131a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;margin-bottom:16px}
+.ct{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#00e5a0;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.ct::before{content:'';display:block;width:4px;height:16px;background:#00e5a0;border-radius:2px}
+.ig{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.fl{font-size:11px;font-weight:700;color:#8888aa;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:block}
+select,input[type=number]{width:100%;background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:500;padding:12px 14px;outline:none;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2388888a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+select option{background:#1c1c28}
+.eg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.et{display:flex;cursor:pointer}
+.et input{display:none}
+.ec{flex:1;background:#1c1c28;border:1.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px;display:flex;flex-direction:column;justify-content:space-between;min-height:92px;transition:all .2s;user-select:none}
+.et input:checked ~ .ec{border-color:#00e5a0;background:rgba(0,229,160,0.06)}
+.et-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.ei{font-size:22px}
+.eck{width:20px;height:20px;border-radius:6px;border:1.5px solid #333355;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.et input:checked ~ .ec .eck{background:#00e5a0;border-color:#00e5a0}
+.eck::after{content:'✓';display:none;font-size:12px;color:#000;font-weight:900;line-height:1}
+.et input:checked ~ .ec .eck::after{display:block}
+.en{font-size:13px;font-weight:700;color:#f0f0f5;line-height:1.3}
+.eu{font-size:11px;color:#8888aa;margin-top:2px}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rf label{font-size:12px;font-weight:700;color:#8888aa;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block}
+.rw{position:relative}
+.rw input{padding-right:48px}
+.ru{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:#00e5a0;pointer-events:none}
+.sh{display:flex;align-items:center;gap:6px;margin-top:8px;padding:8px 12px;background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.2);border-radius:8px;font-size:11px;color:#ff6b35;font-weight:600}
+.bmi-box{background:rgba(124,107,255,0.08);border:1px solid rgba(124,107,255,0.3);border-radius:10px;padding:16px;display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+.bmi-lbl{font-size:12px;color:#8888aa;font-weight:600}
+.bmi-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#7c6bff;letter-spacing:2px}
+.bmi-tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:100px}
+.bt-ok{background:rgba(0,229,160,0.15);color:#00e5a0}
+.bt-ng{background:rgba(255,107,53,0.15);color:#ff6b35}
+.btn-go{width:100%;padding:20px;background:linear-gradient(135deg,#00e5a0,#00c984);border:none;border-radius:16px;color:#000;font-family:'Noto Sans KR',sans-serif;font-size:17px;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:8px}
+.btn-back{width:100%;padding:18px;background:transparent;border:1.5px solid rgba(255,255,255,0.08);border-radius:16px;color:#8888aa;font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px}
+.emsg{font-size:12px;color:#ff6b35;text-align:center;margin-top:8px;padding:10px;background:rgba(255,107,53,0.08);border-radius:8px;border:1px solid rgba(255,107,53,0.2)}
+.res-hd{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:3px;color:#00e5a0;text-align:center;padding:32px 0 24px}
+.resg{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.rc{background:#1c1c28;border-radius:10px;padding:16px;border:1.5px solid rgba(255,255,255,0.08)}
+.rc.g1{border-color:rgba(0,229,160,0.5);background:rgba(0,229,160,0.05)}
+.rc.g2{border-color:rgba(0,229,160,0.3)}
+.rc.g4{border-color:rgba(255,107,53,0.3);background:rgba(255,107,53,0.03)}
+.rc.g5{border-color:rgba(255,107,53,0.5);background:rgba(255,107,53,0.05)}
+.rc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.rc-name{font-size:12px;font-weight:700;color:#8888aa;line-height:1.4}
+.gb{font-family:'Bebas Neue',sans-serif;font-size:13px;padding:3px 10px;border-radius:100px;white-space:nowrap;margin-left:8px}
+.gb1{background:rgba(0,229,160,0.2);color:#00e5a0}
+.gb2{background:rgba(0,229,160,0.12);color:#00c984}
+.gb3{background:rgba(255,255,255,0.08);color:#aaaacc}
+.gb4{background:rgba(255,107,53,0.12);color:#ff6b35}
+.gb5{background:rgba(255,107,53,0.2);color:#ff4444}
+.rc-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#f0f0f5;margin-bottom:4px}
+.rc-val span{font-size:14px;color:#8888aa;margin-left:2px}
+.gbar{display:flex;gap:3px;margin-bottom:10px}
+.gs{height:4px;flex:1;border-radius:2px;background:rgba(255,255,255,0.08)}
+.ga1{background:#00e5a0}.ga2{background:#00c984}.ga3{background:#aaaacc}.ga4{background:#ff6b35}.ga5{background:#ff4444}
+.rc-fb{font-size:12px;color:#aaaacc;line-height:1.6}
+.sc{background:#13131a;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;margin-bottom:16px}
+.sc-t{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#7c6bff;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.sc-t::before{content:'';display:block;width:4px;height:16px;background:#7c6bff;border-radius:2px}
+.slbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.lg{color:#00e5a0}.lw{color:#ff6b35}
+.fi{display:flex;gap:10px;padding:10px 12px;background:#1c1c28;border-radius:8px;margin-bottom:8px;font-size:13px;line-height:1.6;color:#ccccdd}
+.sw{margin-bottom:16px}
+.exg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.exc{background:#1c1c28;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.08)}
+.exn{font-size:13px;font-weight:700;color:#7c6bff;margin-bottom:4px}
+.exd{font-size:12px;color:#aaaacc;line-height:1.5}
+.exs{font-size:11px;font-weight:700;color:#00e5a0;margin-top:6px;margin-bottom:10px}
+.byt{display:inline-flex;align-items:center;gap:5px;background:rgba(255,0,0,0.12);border:1px solid rgba(255,0,0,0.3);color:#ff4444;font-size:11px;font-weight:700;padding:5px 10px;border-radius:6px;text-decoration:none}
+.cbox{background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:16px;padding:24px;text-align:center;margin-bottom:16px}
+.cq{font-size:16px;font-weight:700;color:#f0f0f5;line-height:1.7;word-break:keep-all}
+.cem{font-size:32px;margin-bottom:12px;display:block}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1c1c2e;border:1px solid rgba(255,255,255,0.1);color:#f0f0f5;font-size:13px;font-weight:600;padding:12px 24px;border-radius:100px;transition:transform .3s;white-space:nowrap;z-index:9999}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.toast.er{color:#ff6b35}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd">
+    <div class="hd-badge">🏃 Student Health Fitness Test</div>
+    <div class="hd-title">PAPS<br><span>GUIDE</span></div>
+    <p class="hd-sub">내 체력 기록을 입력하면<br><b>즉시 등급과 맞춤 피드백</b>을 드려요</p>
+  </div>
+  <div id="app"></div>
+</div>
+<div class="toast" id="toast"></div>
+<div style="text-align:center;padding:0 0 32px;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(136,136,170,0.4);text-transform:uppercase">Made by pesongv</div>
+
+<script>
+// =====================================================================
+// STD 기준표: 이미지(세명컴퓨터고 PAPS 기준표) 수치 기반으로 정확히 입력
+//
+// s 배열 구조: [5등급_최대값, 4등급_최대값, 3등급_최대값, 2등급_최대값]
+//   → val > 2등급_최대값 이면 1등급
+//   → val > 3등급_최대값 이면 2등급
+//   → val > 4등급_최대값 이면 3등급
+//   → val > 5등급_최대값 이면 4등급
+//   → 이하이면 5등급
+//
+// rv=1 (50m달리기): 낮을수록 좋음 — 부등호 반전
+//   → val <= 2등급_경계 이면 1등급 ... (경계값은 각 등급 상한)
+// =====================================================================
+var STD = {
+
+  // ── 팔굽혀펴기 (무릎대고) ────────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1/중2: 3 / 11 / 24 / 33  → 34이상 1등급
+  // 남 중3:     3 / 13 / 24 / 33  → 34이상 1등급
+  // 여 중1/중2: 5 / 13 / 23 / 39  → 40이상 1등급(중1:45이상, 중2:40이상)
+  // 여 중3:     5 / 13 / 23 / 39  → 40이상 1등급
+  pushup: {
+    lb:'무릎대고 팔굽혀펴기', un:'회', ic:'💪', ct:'근력·근지구력', rv:0,
+    s:{
+      elem_low:  {M:[2,6,10,14],    F:[2,4,8,12]},
+      elem_mid:  {M:[3,7,12,16],    F:[2,5,10,14]},
+      elem_high: {M:[4,9,15,20],    F:[2,6,11,16]},
+      mid1:      {M:[3,11,24,33],   F:[5,13,23,39]},
+      mid2:      {M:[3,11,24,33],   F:[5,13,23,39]},
+      mid3:      {M:[3,13,24,33],   F:[5,13,23,39]},
+      high:      {M:[11,20,28,35],  F:[5,11,18,24]}
+    }
+  },
+
+  // ── 제자리 멀리뛰기 ──────────────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1: 130 / 158 / 176 / 210  → 211이상 1등급
+  // 남 중2: 129 / 168 / 186 / 217  → 218이상 1등급
+  // 남 중3: 144 / 179 / 200 / 237  → 238이상 1등급  ※이미지 5등급상한 141~145 → 144
+  // 여 중1:  99 / 126 / 143 / 174  → 175이상 1등급
+  // 여 중2:  99 / 126 / 144 / 182  → 183이상 1등급
+  // 여 중3: 100 / 126 / 144 / 182  → 183이상 1등급
+  longjump: {
+    lb:'제자리 멀리뛰기', un:'cm', ic:'🦘', ct:'순발력', rv:0,
+    s:{
+      elem_low:  {M:[82,98,115,130],   F:[73,88,103,118]},
+      elem_mid:  {M:[95,113,132,148],  F:[83,100,119,135]},
+      elem_high: {M:[112,131,152,168], F:[97,116,136,152]},
+      mid1:      {M:[130,158,176,210], F:[99,126,143,174]},
+      mid2:      {M:[129,168,186,217], F:[99,126,144,182]},
+      mid3:      {M:[144,179,200,237], F:[100,126,144,182]},
+      high:      {M:[170,192,213,228], F:[126,146,166,182]}
+    }
+  },
+
+  // ── 왕복오래달리기 (20m) ────────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1: 19 / 35 / 49 / 63  → 64이상 1등급
+  // 남 중2: 21 / 37 / 51 / 65  → 66이상 1등급
+  // 남 중3: 23 / 39 / 53 / 67  → 68이상 1등급
+  // 여 중1: 13 / 18 / 24 / 34  → 35이상 1등급
+  // 여 중2: 14 / 20 / 28 / 39  → 40이상 1등급
+  // 여 중3: 15 / 22 / 32 / 44  → 45이상 1등급
+  shuttle: {
+    lb:'왕복오래달리기(20m)', un:'회', ic:'🏃', ct:'심폐지구력', rv:0,
+    s:{
+      elem_low:  {M:[4,8,14,20],   F:[3,6,11,16]},
+      elem_mid:  {M:[6,12,20,28],  F:[4,9,16,22]},
+      elem_high: {M:[9,18,28,38],  F:[6,13,22,30]},
+      mid1:      {M:[19,35,49,63], F:[13,18,24,34]},
+      mid2:      {M:[21,37,51,65], F:[14,20,28,39]},
+      mid3:      {M:[23,39,53,67], F:[15,22,32,44]},
+      high:      {M:[30,48,65,80], F:[15,26,40,52]}
+    }
+  },
+
+  // ── 앉아 윗몸 앞으로 굽히기 ─────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1/중2: -4.1 / 1.9 / 5.9 / 9.9  → 10.0이상 1등급
+  // 남 중3:     -3.1 / 2.5 / 6.9 / 9.9  → 10.0이상 1등급
+  // 여 중1/중2/중3: 1.9 / 7.9 / 10.9 / 14.9  → 15.0이상 1등급
+  sitreach: {
+    lb:'앉아 윗몸 앞으로 굽히기', un:'cm', ic:'🧘', ct:'유연성', rv:0,
+    s:{
+      elem_low:  {M:[-2,3,8,12],   F:[1,6,11,15]},
+      elem_mid:  {M:[-1,4,9,13],   F:[2,7,12,16]},
+      elem_high: {M:[0,4,9,13],    F:[3,8,13,17]},
+      mid1:      {M:[-4.1,1.9,5.9,9.9],  F:[1.9,7.9,10.9,14.9]},
+      mid2:      {M:[-4.1,1.9,5.9,9.9],  F:[1.9,7.9,10.9,14.9]},
+      mid3:      {M:[-3.1,2.5,6.9,9.9],  F:[1.9,7.9,10.9,14.9]},
+      high:      {M:[3,7,12,16],   F:[7,12,17,21]}
+    }
+  },
+
+  // ── 윗몸 말아 올리기 ─────────────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1/중2/중3: 13 / 32 / 54 / 89  → 90이상 1등급
+  // 여 중1: 6 / 21 / 42 / 57  → 58이상 1등급
+  // 여 중2: 6 / 18 / 38 / 57  → 58이상 1등급
+  // 여 중3: 5 / 16 / 33 / 51  → 52이상 1등급
+  situp: {
+    lb:'윗몸 말아 올리기', un:'회', ic:'🔥', ct:'근지구력', rv:0,
+    s:{
+      elem_low:  {M:[5,11,17,22],  F:[3,8,13,18]},
+      elem_mid:  {M:[7,14,22,28],  F:[4,10,17,22]},
+      elem_high: {M:[10,19,28,35], F:[6,14,22,28]},
+      mid1:      {M:[13,32,54,89], F:[6,21,42,57]},
+      mid2:      {M:[13,32,54,89], F:[6,18,38,57]},
+      mid3:      {M:[13,32,54,89], F:[5,16,33,51]},
+      high:      {M:[28,40,52,60], F:[14,26,37,46]}
+    }
+  },
+
+  // ── 악력 ─────────────────────────────────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // 남 중1: 16.4 / 22.4 / 29.9 / 41.9  → 42.0이상 1등급
+  // 남 중2: 21.9 / 28.4 / 36.9 / 44.4  → 44.5이상 1등급
+  // 남 중3: 24.9 / 32.9 / 40.4 / 48.5  → 48.5초과 1등급
+  // 여 중1: 13.9 / 18.9 / 22.9 / 35.9  → 36.0이상 1등급
+  // 여 중2: 13.9 / 19.4 / 25.4 / 35.9  → 36.0이상 1등급
+  // 여 중3: 16.9 / 19.4 / 27.4 / 35.9  → 36.0이상 1등급
+  grip: {
+    lb:'악력', un:'kg', ic:'✊', ct:'근력', rv:0,
+    s:{
+      elem_low:  {M:[3,6,9,12],    F:[3,5,8,10]},
+      elem_mid:  {M:[5,9,13,16],   F:[4,7,11,14]},
+      elem_high: {M:[8,13,18,22],  F:[6,10,14,18]},
+      mid1:      {M:[16.4,22.4,29.9,41.9], F:[13.9,18.9,22.9,35.9]},
+      mid2:      {M:[21.9,28.4,36.9,44.4], F:[13.9,19.4,25.4,35.9]},
+      mid3:      {M:[24.9,32.9,40.4,48.5], F:[16.9,19.4,27.4,35.9]},
+      high:      {M:[26,35,43,50], F:[15,21,27,32]}
+    }
+  },
+
+  // ── 50m 달리기 (낮을수록 좋음, rv:1) ────────────────────────────────
+  // 이미지 정확 수치 [5등급상한, 4등급상한, 3등급상한, 2등급상한]
+  // ※ rv=1: val <= 2등급상한 → 1등급, val <= 3등급상한 → 2등급 ...
+  // 남 중1: 12.51 / 11.50 / 9.30 / 7.50  → 7.50이하 1등급(1등급범위 7.40~7.50)
+  // 남 중2: 12.41 / 11.50 / 9.00 / 7.30  → 7.30이하 1등급(1등급범위 7.11~7.30)
+  // 남 중3: 12.38 / 11.00 / 8.50 / 7.00  → 7.00이하 1등급(1등급범위 6.80~7.00)
+  // 여 중1/중2/중3: 13.51 / 12.20 / 10.50 / 8.80  → 8.80이하 1등급(1등급범위 8.60~8.80)
+  sprint50: {
+    lb:'50m 달리기', un:'초', ic:'⚡', ct:'순발력·스피드', rv:1,
+    s:{
+      elem_low:  {M:[12.2,11.2,10.2,9.5],    F:[12.8,11.8,10.8,10.0]},
+      elem_mid:  {M:[11.5,10.5,9.6,9.0],     F:[12.1,11.1,10.2,9.5]},
+      elem_high: {M:[10.6,9.7,8.8,8.2],      F:[11.3,10.4,9.5,8.8]},
+      mid1:      {M:[12.51,11.50,9.30,7.50], F:[13.51,12.20,10.50,8.80]},
+      mid2:      {M:[12.41,11.50,9.00,7.30], F:[13.51,12.20,10.50,8.80]},
+      mid3:      {M:[12.38,11.00,8.50,7.00], F:[13.51,12.20,10.50,8.80]},
+      high:      {M:[8.8,8.1,7.4,6.9],       F:[10.1,9.3,8.5,8.0]}
+    }
+  }
+};
+
+// =====================================================================
+// 피드백 메시지 (학교급별: e=초등저, m=초등고·중, h=고등)
+// =====================================================================
+var FB = {
+  pushup:  {1:{e:'팔 힘이 정말 대단해요! 친구들 중 최고 수준이에요 💪',m:'상체 근력이 매우 우수해요. 이 힘이면 어떤 운동도 거뜬해요!',h:'근력 최상위권! 꾸준히 유지하면 체육 시간이 늘 자신감 넘칠 거예요.'},2:{e:'팔굽혀펴기 잘 해요! 조금만 더 하면 1등급 금방이에요.',m:'상체 근력이 좋아요. 매일 5개씩 더 늘리면 1등급 달성!',h:'꽤 좋은 근력이에요. 꾸준한 훈련으로 최상위권 진입 가능해요.'},3:{e:'평균이에요! 매일 조금씩 연습하면 금방 더 잘할 수 있어요.',m:'평균이에요. 주 3회 팔굽혀펴기 루틴을 만들어봐요!',h:'보통 수준이에요. 상체 근력 운동을 꾸준히 하면 훨씬 나아져요.'},4:{e:'조금 힘들죠? 괜찮아요! 천천히 연습하면 금방 늘어요.',m:'아직 발전 여지가 많아요. 기초부터 차근차근 쌓아가면 돼요!',h:'근력을 키울 시간이에요. 월·수·금 루틴으로 8주만 도전해봐요!'},5:{e:'지금부터 시작하면 돼요! 벽 팔굽혀펴기부터 해봐요 😊',m:'걱정 마세요! 기초 운동부터 시작하면 반드시 늘어요!',h:'지금이 변화의 시작점이에요. 기초 근력 운동부터 도전해봐요!'}},
+  longjump:{1:{e:'점프 실력 최고예요! 다리 힘이 정말 강하네요 🦘',m:'순발력 최상위! 이 힘이면 모든 스포츠에서 빛날 거예요.',h:'뛰어난 순발력이에요. 스포츠 전반에서 큰 강점이 됩니다.'},2:{e:'멀리뛰기 잘 해요! 조금 더 연습하면 1등급 금방이에요.',m:'순발력이 우수해요. 폼만 더 다듬으면 최상위권 진입 가능!',h:'좋은 순발력이에요. 점프 훈련을 추가하면 더욱 성장해요.'},3:{e:'평균이에요! 점프 연습을 재미있게 해봐요.',m:'보통 수준이에요. 스쿼트와 점프 훈련으로 충분히 올릴 수 있어요.',h:'평균 수준이에요. 하체 파워 운동으로 도약력을 키워봐요.'},4:{e:'다리 힘을 키우면 금방 나아져요. 같이 연습해봐요!',m:'발전 여지가 많아요! 하체 근력 훈련부터 시작해봐요.',h:'하체 파워를 키울 시간이에요. 스쿼트 루틴에 도전해봐요!'},5:{e:'괜찮아요! 제자리 점프부터 다리 힘을 길러봐요 😊',m:'걱정 마세요. 기초 하체 운동으로 반드시 좋아져요!',h:'지금부터가 시작이에요. 꾸준한 하체 운동으로 변화를 만들어봐요!'}},
+  shuttle: {1:{e:'달리기 체력 최고예요! 폐활량이 정말 대단해요 🏃',m:'심폐지구력 최상위! 지치지 않는 체력의 소유자네요.',h:'심폐 기능이 매우 우수해요. 장거리·팀 스포츠의 핵심 자산이에요.'},2:{e:'달리기 체력이 좋아요! 조금만 더 하면 1등급이에요.',m:'심폐지구력이 우수해요. 유산소 운동 유지하면 1등급 가능!',h:'좋은 지구력이에요. 주기적인 달리기로 최상위 유지해봐요.'},3:{e:'평균이에요. 조금씩 뛰는 시간을 늘려봐요!',m:'보통 수준이에요. 주 3회 20분 달리기로 확실히 올릴 수 있어요.',h:'평균 수준이에요. 꾸준한 유산소 운동이 큰 도움이 될 거예요.'},4:{e:'괜찮아요! 매일 조금씩 뛰면 폐활량이 쑥쑥 늘어요.',m:'아직 가능성이 많아요. 인터벌 달리기로 빠르게 향상 가능!',h:'지구력을 키울 기회예요. 꾸준한 유산소 훈련으로 도전해봐요.'},5:{e:'천천히 걷기부터 시작해도 돼요. 매일 조금씩! 😊',m:'걱정 마세요. 걷기+달리기 인터벌로 시작하면 반드시 늘어요!',h:'지금 시작해도 늦지 않아요. 꾸준함이 최고의 무기예요!'}},
+  sitreach:{1:{e:'몸이 엄청 유연해요! 스트레칭 왕이네요 🧘',m:'유연성 최상위! 부상 위험도 낮고 퍼포먼스에도 큰 도움이에요.',h:'유연성이 매우 우수해요. 모든 운동의 기초가 탄탄하네요.'},2:{e:'몸이 유연해요! 조금만 더 스트레칭 하면 1등급이에요.',m:'유연성이 좋아요. 매일 아침 스트레칭으로 1등급 금방!',h:'유연성이 우수해요. 꾸준한 스트레칭으로 최상위 유지해봐요.'},3:{e:'평균이에요. 매일 저녁 스트레칭 한 번씩 해봐요!',m:'보통 수준이에요. 매일 10분 스트레칭으로 충분히 올릴 수 있어요.',h:'평균 수준이에요. 루틴 스트레칭으로 꾸준히 개선해봐요.'},4:{e:'괜찮아요! 매일 앞으로 굽히기 연습해봐요. 점점 늘어요!',m:'발전 여지가 많아요. 자기 전 스트레칭 루틴을 만들어봐요!',h:'유연성을 키울 시간이에요. 매일 10~15분 스트레칭에 도전해봐요.'},5:{e:'조금씩 매일 하면 돼요. 억지로 하지 말고 천천히! 😊',m:'걱정 마세요. 꾸준한 스트레칭으로 반드시 좋아져요!',h:'지금 시작해도 충분해요. 매일 스트레칭으로 변화를 느껴봐요!'}},
+  situp:   {1:{e:'복근이 정말 강해요! 윗몸 말아 올리기 최고예요 🔥',m:'코어 근력 최상위! 자세도 좋아지고 모든 운동에 유리해요.',h:'코어 근력이 매우 우수해요. 운동 퍼포먼스 전반에 큰 강점이에요.'},2:{e:'윗몸 말아 올리기 잘 해요! 조금만 더 하면 1등급이에요.',m:'코어 근력이 우수해요. 매일 조금씩 늘리면 최상위 금방!',h:'좋은 코어 근력이에요. 꾸준히 유지하면 최상위권 유지 가능해요.'},3:{e:'평균이에요! 매일 조금씩 연습해봐요.',m:'보통 수준이에요. 플랭크와 크런치로 코어를 강하게 만들어봐요.',h:'평균 수준이에요. 코어 운동 루틴을 추가하면 확실히 올라가요.'},4:{e:'조금씩 하다 보면 금방 늘어요. 포기하지 마요!',m:'아직 가능성이 많아요. 기초 코어 운동부터 시작해봐요!',h:'코어 근력을 키울 시간이에요. 꾸준한 코어 트레이닝으로 도전!'},5:{e:'괜찮아요! 플랭크 자세부터 도전해봐요 😊',m:'걱정 마세요. 기초부터 차근차근 하면 반드시 늘어요!',h:'지금 시작해도 충분해요. 코어 운동으로 큰 변화를 만들어봐요!'}},
+  grip:    {1:{e:'손 힘이 정말 세요! 악력왕이네요 ✊',m:'악력 최상위! 상체 근력의 탄탄한 기반을 갖고 있어요.',h:'악력이 매우 우수해요. 상체 전반의 근력이 탄탄하다는 증거예요.'},2:{e:'손 힘이 좋아요! 조금만 더 하면 1등급이에요.',m:'악력이 우수해요. 꾸준한 훈련으로 1등급 진입 가능!',h:'좋은 악력이에요. 꾸준히 유지하면 최상위권 유지 가능해요.'},3:{e:'평균이에요! 맨손 운동으로 연습해봐요.',m:'보통 수준이에요. 맨손 전완근 훈련으로 올릴 수 있어요.',h:'평균 수준이에요. 꾸준한 상체 운동으로 향상시켜봐요.'},4:{e:'괜찮아요! 손 힘을 키우는 운동을 해봐요!',m:'아직 발전 여지가 많아요. 악력 훈련을 루틴에 넣어봐요!',h:'악력을 키울 시간이에요. 상체 운동과 함께 꾸준히 훈련해봐요.'},5:{e:'천천히 시작해요. 손가락 운동부터 해봐요 😊',m:'걱정 마세요. 기초 상체 운동으로 반드시 늘어요!',h:'지금 시작해도 충분해요. 꾸준한 상체 운동으로 변화를 만들어봐요!'}},
+  sprint50:{1:{e:'50m 달리기 정말 빨라요! 번개 같은 속도예요 ⚡',m:'스피드 최상위! 이 순발력이면 어떤 스포츠도 자신감 넘쳐요.',h:'최고의 스피드예요! 이 순발력은 모든 스포츠에서 큰 강점이에요.'},2:{e:'달리기 빨라요! 조금만 더 연습하면 1등급이에요.',m:'스피드가 우수해요. 출발 폼만 다듬으면 1등급 금방!',h:'좋은 스피드예요. 스타트 훈련으로 최상위 진입 가능해요.'},3:{e:'평균이에요! 달리기 연습을 조금 더 해봐요.',m:'보통 수준이에요. 순발력 훈련으로 충분히 올릴 수 있어요.',h:'평균 수준이에요. 단거리 인터벌 훈련으로 스피드를 키워봐요.'},4:{e:'괜찮아요! 출발 자세 연습부터 해봐요. 금방 빨라져요!',m:'아직 가능성이 많아요. 스타트와 스트라이드 훈련을 해봐요!',h:'스피드를 키울 기회예요. 단거리 인터벌 훈련을 도입해봐요!'},5:{e:'빠른 발을 만들어봐요! 제자리 달리기부터 시작해봐요 😊',m:'걱정 마세요. 민첩성 훈련으로 반드시 빨라져요!',h:'지금 시작해도 충분해요. 순발력 훈련으로 큰 변화를 만들어봐요!'}},
+  bmi:     {1:{a:'체중이 이상적인 범위예요! 지금 생활 패턴을 잘 유지해봐요 😊'},2:{a:'체중이 양호한 범위예요. 균형 잡힌 식단과 운동을 유지해봐요.'},3:{a:'체중이 경계 범위에 있어요. 식단과 활동량을 조금 더 신경 써봐요.'},4:{a:'체중 관리가 필요해요. 규칙적인 운동과 균형 잡힌 식사가 도움이 돼요.'},5:{a:'체중 관리가 꼭 필요한 시기예요. 선생님이나 부모님과 함께 계획을 세워봐요.'}}
+};
+
+// =====================================================================
+// 맞춤 운동 추천 — 도구 없이 맨몸으로 할 수 있는 운동만 구성
+// =====================================================================
+// 맞춤 운동 추천
+// 건강체력 요소: 심폐지구력 / 근력 / 근지구력 / 유연성 / 순발력 / 신체조성
+// 모두 맨몸으로 가능한 운동만 구성
+// =====================================================================
+var EX = {
+  // 팔굽혀펴기 → 근력 + 근지구력 향상 운동
+  pushup: [
+    {n:'무릎대고 팔굽혀펴기',    d:'무릎을 대고 천천히 내렸다 올려요. 상체 근력이 부족한 경우 시작하기 좋은 기초 맨몸 운동이에요.',        s:'3세트 × 10회',        b:'근력 (상체)'},
+    {n:'벽 팔굽혀펴기',          d:'벽에 손을 짚고 팔굽혀펴기를 해요. 누구나 할 수 있는 가장 쉬운 상체 근력 맨몸 운동이에요.',             s:'3세트 × 15회',        b:'근력 (상체)'},
+    {n:'팔굽혀펴기',             d:'바닥에 손을 짚고 몸을 일직선으로 유지하며 내렸다 올려요. 가슴·팔·어깨 근력을 동시에 강화해요.',        s:'3세트 × 최대 횟수',   b:'근력 (상체)'},
+    {n:'슬로우 팔굽혀펴기',      d:'3초 천천히 내려가고 1초 멈춘 뒤 올라와요. 근육 긴장을 오래 유지해 근지구력이 빠르게 향상돼요.',         s:'3세트 × 8회',         b:'근지구력 (상체)'},
+    {n:'팔굽혀펴기 연속 버티기', d:'팔굽혀펴기 중간 자세에서 멈춰 최대한 오래 버텨요. 상체 근지구력 강화에 매우 효과적이에요.',             s:'3세트 × 최대 시간',   b:'근지구력 (상체)'},
+    {n:'플랭크',                 d:'팔꿈치를 대고 몸을 일직선으로 유지해요. 코어 전체 근지구력을 기르는 가장 효과적인 맨몸 운동이에요.',     s:'3세트 × 30~60초',     b:'근지구력 (코어)'},
+    {n:'버피',                   d:'서기→스쿼트→플랭크→점프 동작을 이어서 해요. 근력과 심폐지구력을 동시에 기를 수 있어요.',                s:'3세트 × 10회',        b:'심폐지구력 + 근력'}
+  ],
+  // 제자리 멀리뛰기 → 순발력 향상 운동
+  longjump: [
+    {n:'제자리 점프',            d:'두 발로 힘차게 뛰어올라요. 팔 스윙을 함께 사용하면 더 높이 뛸 수 있어요. 착지 시 무릎을 살짝 굽혀요.',  s:'3세트 × 10회',        b:'순발력 (하체)'},
+    {n:'스쿼트 점프',            d:'스쿼트 자세에서 힘껏 뛰어올라요. 순발력을 키우는 대표 맨몸 운동이에요.',                               s:'3세트 × 10회',        b:'순발력 (하체)'},
+    {n:'런지 점프',              d:'런지 자세에서 공중으로 뛰어올라 발을 바꿔 착지해요. 좌우 하체 균형과 순발력을 동시에 길러요.',            s:'3세트 × 8회(양쪽)',   b:'순발력 + 근력 (하체)'},
+    {n:'스쿼트',                 d:'허벅지가 바닥과 평행이 될 때까지 앉아요. 하체 근력의 기본이자 멀리뛰기 힘의 원천이에요.',               s:'3세트 × 15회',        b:'근력 (하체)'},
+    {n:'한 발 점프',             d:'한 발로 힘차게 뛰어올라 같은 발로 착지해요. 좌우 하체 불균형을 잡아주는 순발력 운동이에요.',             s:'3세트 × 8회(양쪽)',   b:'순발력 + 균형'},
+    {n:'스타 점프',              d:'점프하며 팔다리를 동시에 벌렸다 모아요. 전신 순발력과 심폐지구력을 함께 키울 수 있어요.',                s:'3세트 × 20회',        b:'순발력 + 심폐지구력'},
+    {n:'제자리 높이 뛰기',       d:'무릎을 최대한 가슴 쪽으로 당기며 힘껏 뛰어올라요. 폭발적인 하체 순발력을 기르는 핵심 운동이에요.',       s:'3세트 × 10회',        b:'순발력 (하체)'}
+  ],
+  // 왕복오래달리기 → 심폐지구력 향상 운동
+  shuttle: [
+    {n:'제자리 달리기',          d:'제자리에서 무릎을 최대한 높이 들며 빠르게 뛰어요. 심박수를 빠르게 올리는 대표 심폐지구력 운동이에요.',    s:'3세트 × 30초',        b:'심폐지구력'},
+    {n:'버피',                   d:'서기→스쿼트→플랭크→스쿼트→점프 동작을 이어서 해요. 전신 유산소 효과가 매우 뛰어난 맨몸 운동이에요.',    s:'3세트 × 10회',        b:'심폐지구력 + 근력'},
+    {n:'마운틴 클라이머',        d:'플랭크 자세에서 무릎을 번갈아 가슴 쪽으로 빠르게 당겨요. 코어와 심폐지구력을 동시에 자극해요.',           s:'3세트 × 30초',        b:'심폐지구력 + 근지구력'},
+    {n:'스타 점프',              d:'점프하며 팔다리를 동시에 벌렸다 모아요. 전신 협응과 심폐기능을 높이는 쉬운 맨몸 유산소 운동이에요.',      s:'3세트 × 20회',        b:'심폐지구력 + 순발력'},
+    {n:'스쿼트 점프 인터벌',     d:'스쿼트 점프 15회 후 10초 휴식을 반복해요. 심박수를 효과적으로 높이는 맨몸 인터벌 운동이에요.',           s:'5세트 (휴식 10초)',   b:'심폐지구력 + 근력'},
+    {n:'런지 워킹',              d:'넓은 보폭으로 런지를 걸으며 이동해요. 하체 근력과 심폐지구력을 동시에 키울 수 있어요.',                  s:'왕복 4세트',           b:'심폐지구력 + 근력'},
+    {n:'왕복달리기 자가연습',    d:'20m 간격 두 지점을 왕복으로 달려요. PAPS 실전과 동일한 동작으로 심폐지구력 감각을 직접 길러요.',          s:'5세트 (세트당 15~20회)',b:'심폐지구력 (실전)'}
+  ],
+  // 앉아 윗몸 앞으로 굽히기 → 유연성 향상 운동
+  sitreach: [
+    {n:'앉아 앞으로 굽히기',     d:'다리를 펴고 앉아 천천히 발끝을 향해 몸을 숙여요. 반동 없이 유지하는 것이 핵심이에요.',                  s:'5회 × 15~20초 유지',  b:'유연성 (햄스트링·허리)'},
+    {n:'서서 발끝 닿기',         d:'서서 무릎을 펴고 천천히 상체를 앞으로 숙여요. 매일 꾸준히 하면 유연성이 눈에 띄게 향상돼요.',            s:'5회 × 15초 유지',     b:'유연성 (햄스트링·허리)'},
+    {n:'나비 스트레칭',          d:'두 발 바닥을 붙이고 앉아 무릎을 바닥 쪽으로 눌러요. 고관절과 사타구니 유연성을 키워요.',                 s:'3회 × 20~30초 유지',  b:'유연성 (고관절)'},
+    {n:'누워서 다리 당기기',     d:'누운 채로 한쪽 다리를 수직으로 들어 두 손으로 당겨요. 햄스트링이 늘어나는 것을 느껴봐요.',               s:'양쪽 각 30초 × 3회', b:'유연성 (햄스트링)'},
+    {n:'고양이-소 스트레칭',     d:'네발 자세에서 등을 활처럼 구부렸다 펴요. 척추 유연성과 허리 긴장 완화에 탁월한 맨몸 운동이에요.',         s:'천천히 10회 반복',    b:'유연성 (척추·허리)'},
+    {n:'런지 스트레칭',          d:'런지 자세에서 앞 무릎을 구부리고 몸통을 앞으로 밀어요. 고관절과 허벅지 앞쪽 유연성을 늘려줘요.',          s:'양쪽 각 20초 × 3회', b:'유연성 (고관절·허벅지)'},
+    {n:'아기 자세',              d:'무릎을 꿇고 상체를 앞으로 쭉 뻗어 바닥에 내려놓아요. 허리와 등 전체의 긴장을 풀어주는 최고의 스트레칭이에요.',s:'30~60초 유지',       b:'유연성 (허리·등·어깨)'}
+  ],
+  // 윗몸 말아 올리기 → 근지구력 향상 운동
+  situp: [
+    {n:'크런치',                 d:'무릎을 세우고 누워 복부 힘으로 상체를 말아 올려요. 목에 힘주지 말고 복근을 느끼며 해야 해요.',           s:'3세트 × 15~20회',     b:'근지구력 (복근·코어)'},
+    {n:'플랭크',                 d:'팔꿈치를 대고 몸을 일직선으로 유지해요. 허리가 처지지 않도록 주의하며 코어 근지구력을 길러요.',           s:'3세트 × 30~60초',     b:'근지구력 (코어 전체)'},
+    {n:'레그 레이즈',            d:'누운 상태에서 다리를 곧게 펴고 90도까지 들어 올렸다 천천히 내려요. 하복부 근지구력을 집중 강화해요.',     s:'3세트 × 12회',        b:'근지구력 (하복부)'},
+    {n:'바이시클 크런치',        d:'누워서 무릎과 반대쪽 팔꿈치를 번갈아 닿게 해요. 복사근과 코어 전체 근지구력을 동시에 강화해요.',          s:'3세트 × 20회(양쪽)',  b:'근지구력 (복사근·코어)'},
+    {n:'사이드 플랭크',          d:'옆으로 누워 팔꿈치를 지지대로 몸을 들어요. 복사근과 옆구리 근지구력을 강화해요.',                        s:'양쪽 각 20~30초',     b:'근지구력 (복사근)'},
+    {n:'마운틴 클라이머',        d:'플랭크 자세에서 무릎을 빠르게 번갈아 당겨요. 코어 근지구력과 심폐지구력을 동시에 강화해요.',              s:'3세트 × 30초',        b:'근지구력 + 심폐지구력'},
+    {n:'버피',                   d:'서기→스쿼트→플랭크→점프 동작을 이어서 해요. 전신 근지구력과 심폐지구력을 함께 기를 수 있어요.',           s:'3세트 × 10회',        b:'근지구력 + 심폐지구력'}
+  ],
+  // 악력 → 근력 향상 운동
+  grip: [
+    {n:'팔굽혀펴기',             d:'바닥에 손을 짚고 몸을 일직선으로 유지하며 내렸다 올려요. 상체 전체 근력을 골고루 강화해요.',              s:'3세트 × 최대 횟수',   b:'근력 (상체·전완)'},
+    {n:'손 쥐었다 펴기',         d:'주먹을 꽉 쥐었다가 손가락을 최대한 펴요. 도구 없이 할 수 있는 가장 쉬운 악력 맨몸 운동이에요.',          s:'3세트 × 20회',        b:'근력 (악력·전완)'},
+    {n:'손목 저항 굴신',         d:'한 손으로 반대 손목을 잡고 저항을 주면서 손목을 구부렸다 펴요. 전완 근력을 집중 강화해요.',               s:'3세트 × 15회(양쪽)',  b:'근력 (전완·악력)'},
+    {n:'플랭크 손바닥 버티기',   d:'팔꿈치 대신 손바닥으로 플랭크 자세를 유지해요. 손목과 전완 근력, 코어를 동시에 단련해요.',               s:'3세트 × 30~45초',     b:'근력 + 근지구력'},
+    {n:'손가락 팔굽혀펴기 버티기',d:'팔굽혀펴기 자세에서 손가락 끝으로 바닥을 짚고 버텨요. 손가락과 전완 근력을 동시에 단련해요.',           s:'3세트 × 10~20초',     b:'근력 (손가락·전완)'},
+    {n:'파이크 팔굽혀펴기',      d:'엉덩이를 높이 들고 역V자 자세에서 팔굽혀펴기를 해요. 어깨와 상체 근력을 집중 강화할 수 있어요.',          s:'3세트 × 8회',         b:'근력 (어깨·상체)'},
+    {n:'버피',                   d:'서기→스쿼트→플랭크→점프 동작을 이어서 해요. 상체 근력과 심폐지구력을 동시에 기를 수 있어요.',             s:'3세트 × 10회',        b:'근력 + 심폐지구력'}
+  ],
+  // 50m 달리기 → 순발력 + 심폐지구력 향상 운동
+  sprint50: [
+    {n:'제자리 달리기',          d:'제자리에서 무릎을 최대한 높이 들며 빠르게 뛰어요. 발 반응 속도와 심폐지구력을 동시에 높여줘요.',           s:'3세트 × 20초',        b:'순발력 + 심폐지구력'},
+    {n:'스쿼트 점프',            d:'스쿼트 자세에서 폭발적으로 뛰어올라요. 하체 순발력과 근력을 동시에 단련하는 핵심 맨몸 운동이에요.',        s:'3세트 × 10회',        b:'순발력 + 근력 (하체)'},
+    {n:'스타트 달리기',          d:'쪼그려 앉은 자세에서 폭발적으로 출발해 10m를 전력 질주해요. 초반 가속력과 반응 속도를 높여줘요.',          s:'6세트 × 10m',         b:'순발력 (출발 반응)'},
+    {n:'가속 달리기',            d:'처음 10m는 천천히, 이후 30m는 점점 빠르게 달려요. 가속력과 최고 속도를 함께 키울 수 있어요.',             s:'5세트 × 40m',         b:'순발력 + 심폐지구력'},
+    {n:'사이드 셔플',            d:'낮은 자세로 옆으로 빠르게 이동해요. 민첩성과 하체 순발력을 동시에 키울 수 있어요.',                       s:'4세트 × 10m 왕복',    b:'순발력 + 민첩성'},
+    {n:'발 빠르게 두드리기',     d:'발을 바닥에 최대한 빠르게 번갈아 두드려요. 발 놀림 속도와 신경계 반응 속도를 높이는 기초 훈련이에요.',     s:'3세트 × 20초',        b:'순발력 (풋워크)'},
+    {n:'버피',                   d:'서기→스쿼트→플랭크→점프 동작을 이어서 해요. 순발력과 심폐지구력을 함께 기를 수 있어요.',                   s:'3세트 × 10회',        b:'순발력 + 심폐지구력'}
+  ]
+};
+
+var COACH = {
+  best:['이미 최고의 체력이에요! 이 페이스라면 어떤 스포츠도 두렵지 않겠죠? 지금의 노력을 계속 이어가요 🏆','와, 정말 대단해요! 노력이 결과로 나타나고 있어요. 지금처럼만 하면 앞으로도 최고일 거예요 💪'],
+  good:['이미 꽤 좋은 체력이에요! 조금만 더 밀어붙이면 최상위권 진입 가능해요 🔥','잘 하고 있어요! 꾸준함이 최고의 무기예요. 이대로 가면 1등급 금방이에요 ⚡'],
+  avg: ['평균이라는 건, 위로 올라갈 공간이 충분하다는 뜻이에요! 오늘 추천 운동 하나만 실천해봐요 💡','지금부터 시작해도 충분해요. 작은 변화가 큰 결과를 만들어요. 할 수 있어요! 🌟'],
+  low: ['지금이 딱 변화를 시작하기 좋은 때예요! 한 종목씩 집중하다 보면 어느새 훨씬 강해져 있을 거예요 💎','체력은 노력하면 반드시 늘어요. 오늘 딱 10분만 운동해봐요. 그 10분이 바꿔줄 거예요 🔑']
+};
+
+var SEL = {};
+
+function renderForm() {
+  var evKeys = ['pushup','longjump','shuttle','sitreach','situp','grip','sprint50','bmi'];
+  var evInfo = {
+    pushup:   {ic:'💪',nm:'무릎대고<br>팔굽혀펴기',ut:'근력 · 근지구력'},
+    longjump: {ic:'🦘',nm:'제자리<br>멀리뛰기',ut:'순발력'},
+    shuttle:  {ic:'🏃',nm:'왕복오래달리기<br>(20m)',ut:'심폐지구력'},
+    sitreach: {ic:'🧘',nm:'앉아 윗몸<br>앞으로 굽히기',ut:'유연성'},
+    situp:    {ic:'🔥',nm:'윗몸<br>말아 올리기',ut:'근지구력'},
+    grip:     {ic:'✊',nm:'악력',ut:'근력'},
+    sprint50: {ic:'⚡',nm:'50m<br>달리기',ut:'순발력 · 스피드'},
+    bmi:      {ic:'⚖️',nm:'신장 · 체중<br>(BMI)',ut:'체질량지수'}
+  };
+
+  var evHTML = '';
+  for (var i = 0; i < evKeys.length; i++) {
+    var k = evKeys[i];
+    var inf = evInfo[k];
+    var bdr = SEL[k] ? 'border:1.5px solid #00e5a0;background:rgba(0,229,160,0.06)' : 'border:1.5px solid rgba(255,255,255,0.08)';
+    var ckbg = SEL[k] ? 'background:#00e5a0;border-color:#00e5a0' : 'border:1.5px solid #333355';
+    var ckmark = SEL[k] ? '✓' : '';
+    evHTML += '<label class="et" onclick="toggleKey(\''+k+'\')">'
+      + '<div class="ec" style="'+bdr+'">'
+      + '<div class="et-top"><span class="ei">'+inf.ic+'</span>'
+      + '<div class="eck" style="'+ckbg+'"><span style="font-size:12px;color:#000;font-weight:900">'+ckmark+'</span></div></div>'
+      + '<div class="en">'+inf.nm+'</div>'
+      + '<div class="eu">'+inf.ut+'</div>'
+      + '</div></label>';
+  }
+
+  var recFields = '';
+  var anySelected = false;
+  var fieldDefs = {
+    pushup:   {lb:'팔굽혀펴기',un:'회',ph:'0',mn:'0',mx:'200',st:'1'},
+    longjump: {lb:'제자리 멀리뛰기',un:'cm',ph:'0',mn:'0',mx:'400',st:'1'},
+    shuttle:  {lb:'왕복오래달리기',un:'회',ph:'0',mn:'0',mx:'200',st:'1'},
+    sitreach: {lb:'앉아 윗몸 앞으로 굽히기',un:'cm',ph:'0',mn:'-30',mx:'60',st:'1'},
+    situp:    {lb:'윗몸 말아 올리기',un:'회',ph:'0',mn:'0',mx:'200',st:'1'},
+    grip:     {lb:'악력',un:'kg',ph:'0',mn:'0',mx:'100',st:'0.1'},
+    sprint50: {lb:'50m 달리기',un:'초',ph:'0.00',mn:'5',mx:'20',st:'0.01'}
+  };
+
+  for (var fk in fieldDefs) {
+    if (SEL[fk]) {
+      anySelected = true;
+      var fd = fieldDefs[fk];
+      var cv = window['_val_'+fk] || '';
+      var extra = fk === 'sprint50' ? '<div class="sh">⚡ <span>기록이 낮을수록(빠를수록) 좋아요!</span></div>' : '';
+      recFields += '<div class="rf">'
+        + '<label>'+fd.lb+'</label>'
+        + '<div class="rw"><input type="number" id="inp_'+fk+'" value="'+cv+'" placeholder="'+fd.ph+'" min="'+fd.mn+'" max="'+fd.mx+'" step="'+fd.st+'" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 48px 12px 14px;width:100%;outline:none">'
+        + '<span class="ru">'+fd.un+'</span></div>'+extra+'</div>';
+    }
+  }
+
+  if (SEL['bmi']) {
+    anySelected = true;
+    var hv = window['_val_height'] || '';
+    var wv = window['_val_weight'] || '';
+    recFields += '<div class="rf"><label>신장</label><div class="rw">'
+      + '<input type="number" id="inp_height" value="'+hv+'" placeholder="0" min="100" max="220" oninput="updateBmi()" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 48px 12px 14px;width:100%;outline:none">'
+      + '<span class="ru">cm</span></div></div>'
+      + '<div class="rf"><label>체중</label><div class="rw">'
+      + '<input type="number" id="inp_weight" value="'+wv+'" placeholder="0" min="20" max="200" step="0.1" onchange="updateBmi()" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 48px 12px 14px;width:100%;outline:none">'
+      + '<span class="ru">kg</span></div></div>';
+  }
+
+  var recCard = '';
+  if (anySelected) {
+    var bmiBox = '';
+    if (SEL['bmi']) {
+      var bv = window['_bmiVal'] || '—';
+      var bs = window['_bmiStatus'] || '—';
+      var bc = window['_bmiClass'] || '';
+      bmiBox = '<div class="bmi-box" id="bmiBox"><div><div class="bmi-lbl">체질량지수 (BMI)</div></div>'
+        + '<div class="bmi-val" id="bmiValue">'+bv+'</div>'
+        + '<div class="bmi-tag '+bc+'" id="bmiStatus">'+bs+'</div></div>';
+    }
+    recCard = '<div class="card">'
+      + '<div class="ct">기록 입력</div>'
+      + '<div class="rg">'+recFields+'</div>'
+      + bmiBox + '</div>';
+  }
+
+  var errMsg = window['_errMsg'] ? '<div class="emsg">'+window['_errMsg']+'</div>' : '';
+
+  document.getElementById('app').innerHTML =
+    '<div class="card">'
+    + '<div class="ct">기본 정보</div>'
+    + '<div class="ig">'
+    + '<div><span class="fl">학년</span>'
+    + '<select id="sel_grade" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 36px 12px 14px;width:100%;outline:none;cursor:pointer">'
+    + '<option value="">선택</option>'
+    + '<optgroup label="초등학교"><option value="elem1"'+(window['_grade']==='elem1'?' selected':'')+'>초1</option><option value="elem2"'+(window['_grade']==='elem2'?' selected':'')+'>초2</option><option value="elem3"'+(window['_grade']==='elem3'?' selected':'')+'>초3</option><option value="elem4"'+(window['_grade']==='elem4'?' selected':'')+'>초4</option><option value="elem5"'+(window['_grade']==='elem5'?' selected':'')+'>초5</option><option value="elem6"'+(window['_grade']==='elem6'?' selected':'')+'>초6</option></optgroup>'
+    + '<optgroup label="중학교"><option value="mid1"'+(window['_grade']==='mid1'?' selected':'')+'>중1</option><option value="mid2"'+(window['_grade']==='mid2'?' selected':'')+'>중2</option><option value="mid3"'+(window['_grade']==='mid3'?' selected':'')+'>중3</option></optgroup>'
+    + '<optgroup label="고등학교"><option value="high1"'+(window['_grade']==='high1'?' selected':'')+'>고1</option><option value="high2"'+(window['_grade']==='high2'?' selected':'')+'>고2</option><option value="high3"'+(window['_grade']==='high3'?' selected':'')+'>고3</option></optgroup>'
+    + '</select></div>'
+    + '<div><span class="fl">성별</span>'
+    + '<select id="sel_gender" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 36px 12px 14px;width:100%;outline:none;cursor:pointer">'
+    + '<option value="">선택</option><option value="M"'+(window['_gender']==='M'?' selected':'')+'>남</option><option value="F"'+(window['_gender']==='F'?' selected':'')+'>여</option>'
+    + '</select></div>'
+    + '<div><span class="fl">연령 (만)</span>'
+    + '<select id="sel_age" style="background:#1c1c28;border:1px solid rgba(255,255,255,0.08);border-radius:10px;color:#f0f0f5;font-size:15px;padding:12px 36px 12px 14px;width:100%;outline:none;cursor:pointer">'
+    + '<option value="">선택</option>'
+    + [7,8,9,10,11,12,13,14,15,16,17,18].map(function(a){return '<option value="'+a+'"'+(window['_age']==a?' selected':'')+'>'+a+'세</option>';}).join('')
+    + '</select></div>'
+    + '</div></div>'
+    + '<div class="card"><div class="ct">측정 종목 선택</div><div class="eg">'+evHTML+'</div></div>'
+    + recCard
+    + '<button class="btn-go" onclick="doAnalysis()">⚡ 내 체력 분석하기</button>'
+    + errMsg;
+}
+
+function toggleKey(k) {
+  saveInputs();
+  SEL[k] = !SEL[k];
+  window['_errMsg'] = '';
+  renderForm();
+}
+
+function saveInputs() {
+  window['_grade']  = document.getElementById('sel_grade')  ? document.getElementById('sel_grade').value  : (window['_grade']||'');
+  window['_gender'] = document.getElementById('sel_gender') ? document.getElementById('sel_gender').value : (window['_gender']||'');
+  window['_age']    = document.getElementById('sel_age')    ? document.getElementById('sel_age').value    : (window['_age']||'');
+  var keys = ['pushup','longjump','shuttle','sitreach','situp','grip','sprint50'];
+  for (var i = 0; i < keys.length; i++) {
+    var el = document.getElementById('inp_'+keys[i]);
+    if (el) window['_val_'+keys[i]] = el.value;
+  }
+  var he = document.getElementById('inp_height');
+  var we = document.getElementById('inp_weight');
+  if (he) window['_val_height'] = he.value;
+  if (we) window['_val_weight'] = we.value;
+}
+
+function updateBmi() {
+  var h = parseFloat(document.getElementById('inp_height') ? document.getElementById('inp_height').value : 0);
+  var w = parseFloat(document.getElementById('inp_weight') ? document.getElementById('inp_weight').value : 0);
+  if (h > 0 && w > 0) {
+    var b = (w / ((h/100)*(h/100))).toFixed(1);
+    window['_bmiVal'] = b;
+    if (b < 18.5) { window['_bmiStatus']='저체중'; window['_bmiClass']='bt-ng'; }
+    else if (b < 23) { window['_bmiStatus']='정상'; window['_bmiClass']='bt-ok'; }
+    else if (b < 25) { window['_bmiStatus']='과체중'; window['_bmiClass']='bt-ng'; }
+    else { window['_bmiStatus']='비만'; window['_bmiClass']='bt-ng'; }
+    saveInputs();
+    var bv = document.getElementById('bmiValue');
+    var bs = document.getElementById('bmiStatus');
+    if (bv) bv.textContent = b;
+    if (bs) { bs.textContent = window['_bmiStatus']; bs.className = 'bmi-tag ' + window['_bmiClass']; }
+  } else {
+    window['_bmiVal'] = '—'; window['_bmiStatus'] = '—'; window['_bmiClass'] = '';
+    var bv2 = document.getElementById('bmiValue');
+    var bs2 = document.getElementById('bmiStatus');
+    if (bv2) bv2.textContent = '—';
+    if (bs2) { bs2.textContent = '—'; bs2.className = 'bmi-tag'; }
+  }
+}
+
+// =====================================================================
+// 등급 계산
+// s배열: [5등급최대, 4등급최대, 3등급최대, 2등급최대]
+// rv=0 (높을수록 좋음)
+//   val > s[3] → 1등급
+//   val > s[2] → 2등급
+//   val > s[1] → 3등급
+//   val > s[0] → 4등급
+//   이하        → 5등급
+// rv=1 (낮을수록 좋음, 50m달리기)
+//   val <= s[3] → 1등급
+//   val <= s[2] → 2등급
+//   val <= s[1] → 3등급
+//   val <= s[0] → 4등급
+//   초과         → 5등급
+// =====================================================================
+function grpOf(g) {
+  if(g==='elem1'||g==='elem2') return 'elem_low';
+  if(g==='elem3'||g==='elem4') return 'elem_mid';
+  if(g==='elem5'||g==='elem6') return 'elem_high';
+  if(g==='mid1') return 'mid1'; if(g==='mid2') return 'mid2'; if(g==='mid3') return 'mid3';
+  return 'high';
+}
+function ageOf(g) {
+  if(['elem1','elem2','elem3','elem4'].indexOf(g)>=0) return 'e';
+  if(['elem5','elem6','mid1','mid2','mid3'].indexOf(g)>=0) return 'm';
+  return 'h';
+}
+function calcGrade(key, val, grp, sex) {
+  var t = STD[key].s[grp][sex];
+  if (!t) return 3;
+  if (!STD[key].rv) {
+    if (val > t[3]) return 1;
+    if (val > t[2]) return 2;
+    if (val > t[1]) return 3;
+    if (val > t[0]) return 4;
+    return 5;
+  } else {
+    if (val <= t[3]) return 1;
+    if (val <= t[2]) return 2;
+    if (val <= t[1]) return 3;
+    if (val <= t[0]) return 4;
+    return 5;
+  }
+}
+function calcBmiGrade(b) { if(b>=18.5&&b<23)return 1;if(b>=17&&b<25)return 2;if(b>=16&&b<27)return 3;if(b>=15&&b<30)return 4;return 5; }
+
+function doAnalysis() {
+  saveInputs();
+  var grade  = window['_grade']  || '';
+  var gender = window['_gender'] || '';
+  var age    = window['_age']    || '';
+
+  if (!grade || !gender || !age) { window['_errMsg']='⚠️ 학년, 성별, 연령을 모두 선택해 주세요!'; renderForm(); return; }
+  var selKeys = Object.keys(SEL).filter(function(k){return SEL[k];});
+  if (selKeys.length === 0) { window['_errMsg']='⚠️ 최소 1개 이상의 종목을 선택해 주세요!'; renderForm(); return; }
+  for (var i=0;i<selKeys.length;i++) {
+    var k = selKeys[i];
+    if (k==='bmi') { if(!window['_val_height']||!window['_val_weight']){window['_errMsg']='⚠️ 신장과 체중을 모두 입력해 주세요!';renderForm();return;} }
+    else { if(!window['_val_'+k]){window['_errMsg']='⚠️ 선택한 모든 종목의 기록을 입력해 주세요!';renderForm();return;} }
+  }
+
+  var grp = grpOf(grade);
+  var ag  = ageOf(grade);
+  var results = [];
+  var records = {};
+  var height, weight, bmi;
+
+  for (var j=0;j<selKeys.length;j++) {
+    var key = selKeys[j];
+    if (key==='bmi') {
+      height = parseFloat(window['_val_height']);
+      weight = parseFloat(window['_val_weight']);
+      bmi    = parseFloat((weight/((height/100)*(height/100))).toFixed(1));
+      results.push({key:'bmi',lb:'BMI (체질량지수)',ic:'⚖️',un:'',val:bmi,grade:calcBmiGrade(bmi),ct:'신체 조성'});
+    } else {
+      var val = parseFloat(window['_val_'+key]);
+      var g   = calcGrade(key,val,grp,gender);
+      records[key] = val;
+      results.push({key:key,lb:STD[key].lb,ic:STD[key].ic,un:STD[key].un,val:val,grade:g,ct:STD[key].ct});
+    }
+  }
+
+  renderResult(results, ag);
+
+  var glb = {elem1:'초등 1학년',elem2:'초등 2학년',elem3:'초등 3학년',elem4:'초등 4학년',elem5:'초등 5학년',elem6:'초등 6학년',mid1:'중학교 1학년',mid2:'중학교 2학년',mid3:'중학교 3학년',high1:'고등학교 1학년',high2:'고등학교 2학년',high3:'고등학교 3학년'};
+  try {
+    google.script.run
+      .withSuccessHandler(function(){showToast('✅ 기록이 저장됐어요!',false);})
+      .withFailureHandler(function(){showToast('⚠️ 저장에 실패했어요.',true);})
+      .saveToSheet({grade:glb[grade]||grade, gender:gender==='M'?'남':'여', age:parseInt(age), records:records, height:height, weight:weight, bmi:bmi});
+  } catch(e) {}
+}
+
+function renderResult(results, ag) {
+  var cardsHTML = '';
+  for (var i=0;i<results.length;i++) {
+    var r = results[i];
+    var dv = r.key==='bmi' ? r.val.toFixed(1) : r.val;
+    var bar = '<div class="gbar">';
+    for (var s=1;s<=5;s++) bar += '<div class="gs'+(s===r.grade?' ga'+r.grade:'')+'"></div>';
+    bar += '</div>';
+    var fb = r.key==='bmi' ? FB.bmi[r.grade].a : FB[r.key][r.grade][ag];
+    cardsHTML += '<div class="rc g'+r.grade+'" style="animation-delay:'+(i*0.07)+'s">'
+      + '<div class="rc-top"><div class="rc-name">'+r.ic+' '+r.lb+'</div><div class="gb gb'+r.grade+'">'+r.grade+'등급</div></div>'
+      + '<div class="rc-val">'+dv+'<span>'+r.un+'</span></div>'+bar
+      + '<div class="rc-fb">'+fb+'</div></div>';
+  }
+
+  var str = results.filter(function(r){return r.grade<=2;});
+  var wk  = results.filter(function(r){return r.grade>=4;});
+  var swH = '<div class="sc-t">📋 종합 체력 분석</div>';
+  swH += '<div class="sw"><div class="slbl lg">✅ 잘하고 있는 부분</div>';
+  if(str.length>0) str.forEach(function(r){swH+='<div class="fi"><span>'+r.ic+'</span><span><strong style="color:#00e5a0">'+r.lb+'</strong> — '+(r.grade===1?'최우수 수준이에요!':'우수한 수준이에요!')+' '+r.ct+' 능력이 뛰어나요. 계속 유지해봐요 💪</span></div>';});
+  else swH+='<div class="fi"><span>🌱</span><span>아직 우수 등급은 없지만, 꾸준히 하면 반드시 올라가요!</span></div>';
+  swH+='</div><div class="sw"><div class="slbl lw">⚠️ 집중 개선이 필요한 부분</div>';
+  if(wk.length>0) wk.forEach(function(r){swH+='<div class="fi"><span>'+r.ic+'</span><span><strong style="color:#ff6b35">'+r.lb+'</strong> — '+(r.grade===5?'지금 바로 시작해봐요!':'조금 더 집중하면 금방 나아져요!')+' 아래 추천 운동을 참고해봐요 🔥</span></div>';});
+  else swH+='<div class="fi"><span>🎉</span><span>모든 종목이 평균 이상이에요! 정말 대단해요!</span></div>';
+  swH+='</div>';
+
+  var wkKeys = results.filter(function(r){return r.grade>=3&&r.key!=='bmi';}).map(function(r){return r.key;});
+  var tKeys  = wkKeys.length>0 ? wkKeys : results.filter(function(r){return r.key!=='bmi';}).map(function(r){return r.key;});
+  var exs=[],seen={};
+  tKeys.forEach(function(k){(EX[k]||[]).forEach(function(x){if(!seen[x.n]){seen[x.n]=1;exs.push(x);}});});
+  exs = exs.slice(0,8);
+  var exH='<div class="sc-t">💪 맞춤 맨몸 운동 추천</div><div class="exg">';
+  exs.forEach(function(x){
+    var url='https://www.youtube.com/results?search_query='+encodeURIComponent(x.n+' 운동 방법');
+    exH+='<div class="exc"><div class="exn">⚡ '+x.n+'</div><div class="exd">'+x.d+'</div><div class="exs">📌 '+x.s+' · 🏃 '+x.b+'</div><a class="byt" href="'+url+'" target="_blank" rel="noopener">▶ 유튜브로 보기</a></div>';
+  });
+  exH+='</div>';
+
+  var avg=results.reduce(function(s,r){return s+r.grade;},0)/results.length;
+  var pool=avg<=1.5?COACH.best:avg<=2.5?COACH.good:avg<=3.5?COACH.avg:COACH.low;
+  var msg=pool[Math.floor(Math.random()*pool.length)];
+
+  document.getElementById('app').innerHTML =
+    '<div class="res-hd">YOUR FITNESS<br>REPORT</div>'
+    + '<div class="resg">'+cardsHTML+'</div>'
+    + '<div class="sc">'+swH+'</div>'
+    + '<div class="sc">'+exH+'</div>'
+    + '<div class="cbox"><span class="cem">🎯</span><div class="cq">'+msg+'</div></div>'
+    + '<button class="btn-back" onclick="doReset()">🔄 다시 분석하기</button>'
+    + '<div style="height:32px"></div>';
+}
+
+function doReset() {
+  SEL = {};
+  window['_grade']=''; window['_gender']=''; window['_age']='';
+  window['_errMsg']='';
+  window['_bmiVal']='—'; window['_bmiStatus']='—'; window['_bmiClass']='';
+  var keys=['pushup','longjump','shuttle','sitreach','situp','grip','sprint50','height','weight'];
+  for(var i=0;i<keys.length;i++) window['_val_'+keys[i]]='';
+  renderForm();
+  window.scrollTo(0,0);
+}
+
+function showToast(msg, isErr) {
+  var el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast' + (isErr?' er':'');
+  el.classList.add('on');
+  setTimeout(function(){el.classList.remove('on');}, 3500);
+}
+
+renderForm();
+</script>
+</body>
+</html>
