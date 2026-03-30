@@ -1,0 +1,37 @@
+const SPREADSHEET_ID = '11ljl9lMfB7KwMjwUCUdFRRDqSeZ5D8Cf2-4lPbOvUkk';
+const SHEET_NAME = '출력결과';
+
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index')
+    .setTitle('PAPS 체력 가이드')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function saveToSheet(data) {
+  try {
+    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    let sheet = ss.getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      sheet = ss.insertSheet(SHEET_NAME);
+      const headers = ['타임스탬프','학년','성별','연령','팔굽혀펴기(회)','멀리뛰기(cm)','왕복달리기(회)','윗몸굽히기(cm)','윗몸말아올리기(회)','악력(kg)','50m달리기(초)','신장(cm)','체중(kg)','BMI'];
+      sheet.appendRow(headers);
+      sheet.getRange(1,1,1,headers.length).setFontWeight('bold');
+      sheet.setFrozenRows(1);
+    }
+    const r = data.records || {};
+    sheet.appendRow([
+      new Date(), data.grade||'', data.gender||'', data.age||'',
+      r.pushup!==undefined?r.pushup:'', r.longjump!==undefined?r.longjump:'',
+      r.shuttle!==undefined?r.shuttle:'', r.sitreach!==undefined?r.sitreach:'',
+      r.situp!==undefined?r.situp:'', r.grip!==undefined?r.grip:'',
+      r.sprint50!==undefined?r.sprint50:'',
+      data.height!==undefined?data.height:'',
+      data.weight!==undefined?data.weight:'',
+      data.bmi!==undefined?data.bmi:''
+    ]);
+    return {success:true};
+  } catch(e) {
+    Logger.log(e.toString());
+    return {success:false, error:e.toString()};
+  }
+}
